@@ -1,0 +1,55 @@
+//itoa: convert integer to string padded with blanks 
+// reverse from p1.19.c
+// refer p3.4.c ; 3.6.c 
+
+#include <stdio.h>
+#include <ctype.h>
+
+
+void itoa(int n, char s[], int w);
+void reverse(char s[]);
+
+#define abs(x) (x<0 ? -x : x)
+
+int main()
+{
+    int n, w ;
+    char s[30];    
+
+    scanf("%d %d", &n, &w) ;
+
+    itoa(n, s, w) ;
+    printf("\n%s\n", s);
+    return 0;    
+}
+
+void itoa(int n, char s[], int w){
+    int i, sign ;
+
+    sign = n ;
+    i=0 ;
+
+    do {
+        s[i++] = abs(n % 10) + '0' ;
+    } while ((n/=10) != 0) ;
+    if(sign < 0)
+        s[i++] = '-' ;
+    while(i < w)
+        s[i++] = ' ' ;
+    s[i] = '\0' ;
+    reverse(s) ;
+}
+
+//reverse : copy "from" into "to"
+void reverse(char s[])
+{
+    int i, j;
+    int temp;
+
+    for(i=0; s[i]!= '\0' ; i++)
+        ;
+
+    for(j = i-1, i=0 ; i<j ; i++, j--)
+        temp = s[i] , s[i] = s[j] , s[j] = temp ;
+
+}
